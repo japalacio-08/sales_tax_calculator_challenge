@@ -31,7 +31,7 @@ module Validations
     validate_presence(value) if rule[:presence]
 
     # Type validation
-    validate_type(value, rule[:type], attribute) if rule[:type]
+    validate_type(value, rule[:type]) if rule[:type]
 
     # Positive validation
     validate_positive(value) if rule[:positive] && value.is_a?(Numeric)
@@ -42,7 +42,7 @@ module Validations
     value
   end
 
-  def validate_type(value, expected_type, _attribute)
+  def validate_type(value, expected_type)
     return if value.nil?
 
     # Convert symbol to actual class if needed
