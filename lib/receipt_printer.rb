@@ -1,6 +1,17 @@
+require_relative 'validations'
+require_relative 'basket'
+
 class ReceiptPrinter
+  include Validations
+
+  attr_reader :basket
+
+  validate :basket, type: Basket, presence: true
+
   def initialize(basket)
     @basket = basket
+
+    validate!
   end
 
   # Prints a formatted receipt for the basket

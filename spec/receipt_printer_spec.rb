@@ -9,6 +9,16 @@ RSpec.describe ReceiptPrinter do
   let(:basket) { Basket.new(tax_calculator:) }
   let(:printer) { described_class.new(basket) }
 
+  describe 'validation' do
+    it 'raises ArgumentError when basket is not a Basket instance' do
+      expect { described_class.new('not a basket') }.to raise_error(ArgumentError, /is not a Basket/)
+    end
+
+    it 'raises ArgumentError when basket is nil' do
+      expect { described_class.new(nil) }.to raise_error(ArgumentError, 'Value cannot be nil')
+    end
+  end
+
   describe '#print' do
     it 'prints a receipt with items, taxes, and total' do
       # Add items to basket

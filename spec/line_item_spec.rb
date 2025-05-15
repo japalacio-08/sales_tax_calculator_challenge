@@ -18,6 +18,32 @@ RSpec.describe LineItem do
     end
   end
 
+  describe 'validations' do
+    it 'raises error when product is nil' do
+      expect { described_class.new(nil, 2) }.to raise_error(ArgumentError)
+    end
+
+    it 'raises error when product is not a Product instance' do
+      expect { described_class.new('not a product', 2) }.to raise_error(ArgumentError)
+    end
+
+    it 'raises error when quantity is nil' do
+      expect { described_class.new(product, nil) }.to raise_error(ArgumentError)
+    end
+
+    it 'raises error when quantity is not a number' do
+      expect { described_class.new(product, '2') }.to raise_error(ArgumentError)
+    end
+
+    it 'raises error when quantity is zero' do
+      expect { described_class.new(product, 0) }.to raise_error(ArgumentError)
+    end
+
+    it 'raises error when quantity is negative' do
+      expect { described_class.new(product, -1) }.to raise_error(ArgumentError)
+    end
+  end
+
   describe '#total_price' do
     it 'calculates total price including tax for multiple items' do
       # Product price: 10.00
